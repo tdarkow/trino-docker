@@ -17,3 +17,4 @@ docker container run -it --name trino darkow/repo:trino sh
 
 
 
+docker swarm join --token SWMTKN-1-5u31m54o1h3jz9gz3s68x6dc2lia65jzlnb3bznf6co9u6b54a-4hss20zx32kafan99waur8mx5 192.168.0.18:2377
