@@ -21,15 +21,18 @@ RUN \
     rm -rf /var/cache/yum && \
     groupadd trino --gid 1000 && \
     useradd trino --uid 1000 --gid 1000 && \
-    mkdir -p /usr/lib/trino /data/trino && \
-    chown -R "trino:trino" /usr/lib/trino /data/trino
+    mkdir -p /usr/lib/trino /data/trino /opt/trino && \
+    chown -R "trino:trino" /usr/lib/trino /data/trino /opt/trino
 
 ARG TRINO_VERSION
 COPY trino-cli-${TRINO_VERSION}-executable.jar /usr/bin/trino
 COPY --chown=trino:trino trino-server-${TRINO_VERSION} /usr/lib/trino
 COPY --chown=trino:trino default/etc /etc/trino
+COPY --chown=trino:trino bin /opt/trion
+
+RUN chmod +x /opt/trino/run-trino
 
 EXPOSE 8080
 USER trino:trino
 ENV LANG en_US.UTF-8
-CMD ["/usr/lib/trino/bin/run-trino"]
+CMD ["/opt/trino/run-trino"]
