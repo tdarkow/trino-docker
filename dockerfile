@@ -28,7 +28,7 @@ ARG TRINO_VERSION
 COPY trino-cli-${TRINO_VERSION}-executable.jar /usr/bin/trino
 COPY --chown=trino:trino trino-server-${TRINO_VERSION} /usr/lib/trino
 COPY --chown=trino:trino default/etc /etc/trino
-COPY --chown=trino:trino bin /opt/trion
+COPY --chown=trino:trino bin /opt/trino
 
 RUN chmod +x /opt/trino/run-trino
 
