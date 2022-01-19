@@ -11,21 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM azul/zulu-openjdk-centos:11
+FROM darkow/trino:latest
 
 ENV JAVA_HOME /usr/lib/jvm/zulu11
-RUN \
-    set -xeu && \
-    yum -y -q install less && \
-    yum -q clean all && \
-    rm -rf /var/cache/yum && \
-    groupadd trino --gid 1000 && \
-    useradd trino --uid 1000 --gid 1000 && \
-    mkdir -p /usr/lib/trino /data/trino /opt/trino && \
-    chown -R "trino:trino" /usr/lib/trino /data/trino /opt/trino
 
 ARG TRINO_VERSION
-COPY trino-cli-${TRINO_VERSION}-executable.jar /usr/bin/trino
+COPY trino-jdbc-${TRINO_VERSION}.jar /usr/bin/trino
 COPY --chown=trino:trino trino-server-${TRINO_VERSION} /usr/lib/trino
 COPY --chown=trino:trino default/etc /etc/trino
 COPY --chown=trino:trino bin /opt/trino
